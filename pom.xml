@@ -6,6 +6,7 @@
     <groupId>org.springframework</groupId>
     <artifactId>gs-spring-boot</artifactId>
     <version>0.1.0</version>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -24,12 +25,35 @@
         <java.version>1.8</java.version>
     </properties>
 
-
     <build>
+      <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+              <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.6</version>
+        <executions>
+          <execution>
+            <id>make-zip</id>
+            <!-- this is used for inheritance merges -->
+            <phase>package</phase>
+            <!-- bind to the packaging phase -->
+            <goals>
+              <goal>
+                single
+              </goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <appendAssemblyId>false</appendAssemblyId>
+          <descriptors>
+            <descriptor>src/assembly/zip.xml</descriptor>
+          </descriptors>
+        </configuration>
             </plugin>
         </plugins>
     </build>
